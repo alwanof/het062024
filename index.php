@@ -48,8 +48,12 @@ $search = $_GET['search'] ?? '%';
                 <tbody>
                     <!-- start -->
                     <?php
-                    $sql = "SELECT * FROM customers WHERE customer_name LIKE '%" . $search . "%'";
-                    $result = $con->query($sql);
+                    $sql = "SELECT * FROM customers WHERE customer_name LIKE ? OR email LIKE ? OR phone_number LIKE ? OR address LIKE ?";
+                    $stmt = $con->prepare($sql);
+                    $search_param = '%' . trim($search) . '%';
+                    $stmt->bind_param('ssss', $search_param, $search_param, $search_param, $search_param);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
                     // check if num row > 0
                     if ($result->num_rows > 0) {
                         while ($row = $result->fetch_assoc()) {
