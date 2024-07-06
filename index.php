@@ -11,6 +11,7 @@ $con = new mysqli($host, $user, $password, $database);
 if (!$con) {
     die('Connection failed: ' . mysqli_connect_error());
 }
+$search = $_GET['search'] ?? '%';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +48,7 @@ if (!$con) {
                 <tbody>
                     <!-- start -->
                     <?php
-                    $sql = "SELECT * FROM customers";
+                    $sql = "SELECT * FROM customers WHERE customer_name LIKE '%" . $search . "%'";
                     $result = $con->query($sql);
                     // check if num row > 0
                     if ($result->num_rows > 0) {
