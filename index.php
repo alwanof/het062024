@@ -1,3 +1,17 @@
+<?php
+// connection variables
+$host = 'localhost';
+$user = 'root';
+$password = '';
+$database = 'ecom12';
+// create a connection
+$con = new mysqli($host, $user, $password, $database);
+
+// check if the connection is successful
+if (!$con) {
+    die('Connection failed: ' . mysqli_connect_error());
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
