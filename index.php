@@ -45,23 +45,29 @@ if (!$con) {
                     </tr>
                 </thead>
                 <tbody>
-
-                    <tr>
-                        <td>1</td>
-                        <td>John Doe</td>
-                        <td>john@example.com</td>
-                        <td>1234567890</td>
-                        <td>123, Main St, Anytown</td>
-                        <td>2023-01-01</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jane Doe</td>
-                        <td>jane@example.com</td>
-                        <td>9876543210</td>
-                        <td>456, Main St, Anytown</td>
-                        <td>2023-01-02</td>
-                    </tr>
+                    <!-- start -->
+                    <?php
+                    $sql = "SELECT * FROM customers";
+                    $result = $con->query($sql);
+                    // check if num row > 0
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                    ?>
+                            <tr>
+                                <td><?= $row['id']; ?></td>
+                                <td><?= $row['customer_name']; ?></td>
+                                <td><?= $row['email']; ?></td>
+                                <td><?= $row['phone_number']; ?></td>
+                                <td><?= $row['address']; ?></td>
+                                <td><?= $row['created_at']; ?></td>
+                            </tr>
+                            <!-- end loop -->
+                        <?php }
+                    } else { ?>
+                        <tr>
+                            <td colspan="6" class="text-center">No data found</td>
+                        </tr>
+                    <?php } ?>
                 </tbody>
             </table>
 
