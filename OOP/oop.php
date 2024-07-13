@@ -1,8 +1,22 @@
 <?php
-include "DB.php";
+class Person
+{
+    private $name;
+    public $age;
 
-$db = new DatabaseHelper("localhost", "root", "", "het9");
+    public function setName($name)
+    {
+        $this->name = ucfirst($name);
+    }
+    public function getName()
+    {
+        return $this->name;
+    }
+}
 
+$person = new Person();
+$person->setName("murad");
+$person->age = 25;
 
-$data = $db->fetchData("SELECT * FROM customers");
-print_r($data);
+echo $person->getName();
+echo $person->age;
