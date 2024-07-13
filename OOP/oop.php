@@ -1,26 +1,24 @@
 <?php
-
-class Person
+class FileHandler
 {
-    public $name;
-    public $age;
-    public $city;
+    public $file;
 
-    // constructor
-    public function __construct($name, $age, $city)
+    public function __construct($file)
     {
-        $this->name = $name;
-        $this->age = $age;
-        $this->city = $city;
+
+        $this->file  = fopen($file, 'w');
     }
-
-    public function greet()
+    public function writeData($data)
     {
-        echo "Hello, $this->name. You are $this->age years old and live in $this->city.";
+
+        fwrite($this->file, $data);
+    }
+    // destructor
+    public function __destruct()
+    {
+        fclose($this->file);
     }
 }
 
-$person1 = new Person("John", 20, "New York");
-
-
-$person1->greet();
+$fh = new FileHandler("example.txt");
+$fh->writeData("Hello, world!");
