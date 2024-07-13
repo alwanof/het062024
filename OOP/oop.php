@@ -1,24 +1,8 @@
 <?php
-class FileHandler
-{
-    public $file;
+include "DB.php";
 
-    public function __construct($file)
-    {
+$db = new DatabaseHelper("localhost", "root", "", "het9");
 
-        $this->file  = fopen($file, 'w');
-    }
-    public function writeData($data)
-    {
 
-        fwrite($this->file, $data);
-    }
-    // destructor
-    public function __destruct()
-    {
-        fclose($this->file);
-    }
-}
-
-$fh = new FileHandler("example.txt");
-$fh->writeData("Hello, world!");
+$data = $db->fetchData("SELECT * FROM customers");
+print_r($data);
